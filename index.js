@@ -1,0 +1,1 @@
+var StringFactory = require('./methods/core/string.js');
