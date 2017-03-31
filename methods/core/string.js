@@ -72,6 +72,7 @@ function randomlyPickOne(){
     return args[ randomNum(args.length) ];
 }
 
+// add comments here
 module.exports = function(){
     return {
         getWord: getWord,
