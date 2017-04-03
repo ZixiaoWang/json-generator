@@ -25,6 +25,16 @@ function randomNum(length, start){
     return Math.floor( Math.random()*length+_start );
 }
 
+function getChar(filter){
+    let _library = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\", "]", "^", "_", "`", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~"];
+    let _filteredLibrary = [];
+    if(filter && filter instanceof RegExp){
+        let _re = new RegExp(filter.source, 'g');
+        _filteredLibrary = _library.join('').match(_re) || [];
+    }else{ _filteredLibrary = _library; }
+
+    return _filteredLibrary[randomNum(_filteredLibrary.length)];
+}
 
 function getWord(num){
     let _strArr = [];
@@ -72,15 +82,22 @@ function randomlyPickOne(){
     return args[ randomNum(args.length) ];
 }
 
+function getGUID(){
+    let _GUIDtemplate = 'xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx';
+    return _GUIDtemplate.replace(/x/g, function(){ return getChar(/[0-9a-z]/); });
+}
+
 // add comments here
 module.exports = function(){
     return {
+        getChar: getChar,
         getWord: getWord,
         getName: getName,
         getCountry: getCountry,
         getDistrict: getDistrict,
         getStreet: getStreet,
         getAddress: getAddress,
+        getGUID: getGUID,
         randomlyPickOne: randomlyPickOne
     };
 };
